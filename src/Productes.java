@@ -143,17 +143,17 @@ public class Productes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonInsertActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        String CODI = (String)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
+        int CODI = (int)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
         System.out.println(CODI);
         
         try {
             stmt = con.createStatement();
-            String query = "DELETE FROM Producte WHERE codi='" + CODI + "'";
+            String query = "DELETE FROM producte WHERE codi='" + CODI + "'";
             //System.out.println(query);
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(this, "Producte eliminat correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            FacturesClient obj = new FacturesClient(con, CODI);
+            Productes obj = new Productes(con);
             obj.setVisible(true);
         } catch (Exception e) {
             String txt = "Error al eliminar el producte: " + e;

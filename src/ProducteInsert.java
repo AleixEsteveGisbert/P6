@@ -28,7 +28,8 @@ public class ProducteInsert extends javax.swing.JFrame {
         con = c;
         initComponents();
         this.setLocationRelativeTo(null);
-
+        getCategoria();
+        getProveidor();
     }
 
     /**
@@ -41,14 +42,14 @@ public class ProducteInsert extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonGoBack = new javax.swing.JButton();
-        jTextFieldDNI = new javax.swing.JTextField();
+        jTextFieldNom = new javax.swing.JTextField();
         jButtonCancel = new javax.swing.JButton();
         jButtonCreate = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldNom = new javax.swing.JTextField();
+        jTextFieldDesc = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldPoblacio = new javax.swing.JTextField();
+        jTextFieldPreu = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -65,10 +66,10 @@ public class ProducteInsert extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldDNI.setToolTipText("Nom del projecte");
-        jTextFieldDNI.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNom.setToolTipText("Nom del projecte");
+        jTextFieldNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDNIActionPerformed(evt);
+                jTextFieldNomActionPerformed(evt);
             }
         });
 
@@ -93,25 +94,25 @@ public class ProducteInsert extends javax.swing.JFrame {
 
         jLabel3.setText("Descripció:");
 
-        jTextFieldNom.setToolTipText("Nom del projecte");
-        jTextFieldNom.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldDesc.setToolTipText("Nom del projecte");
+        jTextFieldDesc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNomActionPerformed(evt);
+                jTextFieldDescActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Preu unitari:");
 
-        jTextFieldPoblacio.setToolTipText("Nom del projecte");
-        jTextFieldPoblacio.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldPreu.setToolTipText("Nom del projecte");
+        jTextFieldPreu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPoblacioActionPerformed(evt);
+                jTextFieldPreuActionPerformed(evt);
             }
         });
 
         jLabel5.setText("Categoria:");
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Categoria" }));
         jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxCategoriaActionPerformed(evt);
@@ -120,7 +121,12 @@ public class ProducteInsert extends javax.swing.JFrame {
 
         jLabel11.setText("Proveidor:");
 
-        jComboBoxProveidor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxProveidor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Proveidor" }));
+        jComboBoxProveidor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxProveidorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,11 +146,11 @@ public class ProducteInsert extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel3)
-                                        .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel1))
-                                    .addComponent(jTextFieldNom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldDesc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextFieldPoblacio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldPreu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel4))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jButtonCancel)
@@ -163,15 +169,15 @@ public class ProducteInsert extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldPoblacio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldPreu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,9 +202,9 @@ public class ProducteInsert extends javax.swing.JFrame {
         dispose();                      // Hide current window
     }//GEN-LAST:event_jButtonGoBackActionPerformed
 
-    private void jTextFieldDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDNIActionPerformed
+    private void jTextFieldNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDNIActionPerformed
+    }//GEN-LAST:event_jTextFieldNomActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         Clients mainWindow = new Clients(con);   // Create a new MainJFrame window
@@ -208,22 +214,35 @@ public class ProducteInsert extends javax.swing.JFrame {
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
         try {
+            int codi=0, codi2=0;
+            String query1 = "SELECT * FROM categoria WHERE nom = '" + jComboBoxCategoria.getSelectedItem() + "'";
+
+                    rs = stmt.executeQuery(query1);
+                    
+                    while (rs.next()) {
+                        codi = rs.getInt("codi");
+                    }
+                    
+            String query2 = "SELECT * FROM proveidor WHERE nom = '" + jComboBoxProveidor.getSelectedItem() + "'";
+
+                    rs = stmt.executeQuery(query2);
+                    
+                    while (rs.next()) {
+                        codi2 = rs.getInt("codi");
+                    }
+            
             stmt = con.createStatement();
-            String query = "INSERT INTO client (dni, nom, població, \"adreça.carrer\", \"adreça.num\", \"adreça.escala\", \"adreça.pis\", \"adreça.porta\", email) "
-                    + "VALUES ('" + jTextFieldDNI.getText() + "', "
-                    + "'" + jTextFieldNom.getText() + "', "
-                    + "'" + jTextFieldPoblacio.getText() + "', "
-                    + "'" + jTextFieldCarrer.getText() + "', "
-                    + "'" + jTextFieldNum.getText() + "', "
-                    + "'" + jTextFieldEscala.getText() + "', "
-                    + "'" + jTextFieldPis.getText() + "', "
-                    + "'" + jTextFieldPorta.getText() + "', "
-                    + "'" + jTextFieldCorreu.getText() + "')";
+            String query = "INSERT INTO producte (nom_comercial, descripcio, preu_unitari, codi_categoria, codi_proveidor) "
+                    + "VALUES ('" + jTextFieldNom.getText() + "', "
+                    + "'" + jTextFieldDesc.getText() + "', "
+                    + "'" + jTextFieldPreu.getText() + "', "
+                    + "'" + codi + "', "
+                    + "'" + codi2 + "')";
             //System.out.println(query);
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(this, "Client inserit correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            Clients mainWindow = new Clients(con);   // Create a new MainJFrame window
+            Productes mainWindow = new Productes(con);   // Create a new MainJFrame window
         mainWindow.setVisible(true); 
         } catch (Exception e) {
             String txt = "Error al inserir client: " + e;
@@ -231,43 +250,54 @@ public class ProducteInsert extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
-    private void jTextFieldNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomActionPerformed
+    private void jTextFieldDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNomActionPerformed
+    }//GEN-LAST:event_jTextFieldDescActionPerformed
 
-    private void jTextFieldPoblacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPoblacioActionPerformed
+    private void jTextFieldPreuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPreuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPoblacioActionPerformed
+    }//GEN-LAST:event_jTextFieldPreuActionPerformed
 
     private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
-        getCategoria();
+        
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
+
+    private void jComboBoxProveidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProveidorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxProveidorActionPerformed
     
     private void getCategoria() {
-        int preuTotal = 0;
-            String nom = String.valueOf(((JComboBox<String>) jComboBoxCategoria).getSelectedItem());
+
             try {
+                String query = "SELECT * FROM categoria";
                 stmt = con.createStatement();
-                String query = "SELECT preu_unitari FROM producte WHERE nom_comercial = '" + nom + "'";
-
                 rs = stmt.executeQuery(query);
-
-                int preu = (int) ((JSpinner) items[i][1]).getValue();
                 while (rs.next()) {
-                    preu = (int) ((JSpinner) items[i][1]).getValue() * rs.getInt("preu_unitari");
-                }
-                //System.out.println(preu);
-                if (!nom.equals("Selecciona un producte")) {
-                    ((JLabel) items[i][2]).setText(Integer.toString(preu));
-                    preuTotal += Integer.parseInt(((JLabel) items[i][2]).getText());
-                } else {
-                    ((JLabel) items[i][2]).setText("0");
+                    jComboBoxCategoria.addItem(rs.getString("nom"));
                 }
             } catch (Exception e) {
-                String txt = "Error al consultar producte: " + e;
-                System.out.println(txt);
-            }
-        jLabelPreuTotal.setText(Integer.toString(preuTotal));
+
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+            
+        }
+    }
+    
+     private void getProveidor() {
+
+            try {
+                String query = "SELECT * FROM proveidor";
+                stmt = con.createStatement();
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    jComboBoxProveidor.addItem(rs.getString("nom"));
+                }
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+            
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -281,8 +311,8 @@ public class ProducteInsert extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextFieldDNI;
+    private javax.swing.JTextField jTextFieldDesc;
     private javax.swing.JTextField jTextFieldNom;
-    private javax.swing.JTextField jTextFieldPoblacio;
+    private javax.swing.JTextField jTextFieldPreu;
     // End of variables declaration//GEN-END:variables
 }
