@@ -190,7 +190,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExitActionPerformed
 
     private void jButtonCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriesActionPerformed
-        Categories categoriesPane = new Categories(c);
+        Categoria categoriesPane = new Categoria(c);
         categoriesPane.setVisible(true);
     }//GEN-LAST:event_jButtonCategoriesActionPerformed
 
