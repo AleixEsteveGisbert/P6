@@ -170,7 +170,7 @@ public class Main extends javax.swing.JFrame {
 
             Class.forName("org.postgresql.Driver");
 
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/practica6", "postgres", "");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/kevin", "postgres", "");
 
             JOptionPane.showMessageDialog(this, "Connection with database established", "Status", JOptionPane.INFORMATION_MESSAGE);
 
@@ -210,8 +210,8 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonProveidorsActionPerformed
 
     private void jButtonProductesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProductesActionPerformed
-        //Productes proveidorsPane = new Productes(c);
-        //proveidorsPane.setVisible(true);
+        Productes proveidorsPane = new Productes(c);
+        proveidorsPane.setVisible(true);
     }//GEN-LAST:event_jButtonProductesActionPerformed
 
     private void jButtonTreballadorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTreballadorsActionPerformed
