@@ -450,9 +450,9 @@ public class FacturaInsert extends javax.swing.JFrame {
                 .addComponent(jLayeredPane5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel2))
                     .addComponent(jLabelPreuTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -483,6 +483,7 @@ public class FacturaInsert extends javax.swing.JFrame {
                 stmt = con.createStatement();
                 String query = "INSERT INTO factura (descripcio, total, dni_client, nss_treballador) "
                         + "VALUES ('" + jTextAreaDescripcio.getText() + "', '" + jLabelPreuTotal.getText() + "', '" + DNI + "', '1237897645');";
+                System.out.println(query);
                 stmt.executeUpdate(query);
                 String query1 = "SELECT num_factura FROM factura ORDER BY num_factura DESC LIMIT 1";
                 rs = stmt.executeQuery(query1);
@@ -504,7 +505,7 @@ public class FacturaInsert extends javax.swing.JFrame {
                     String nom = String.valueOf(((JComboBox<String>) items[i][0]).getSelectedItem());
                     if (!nom.equals("Selecciona un producte")) {
                     String query1 = "SELECT * FROM producte WHERE nom_comercial = '" + nom + "'";
-
+                    System.out.println(query1);
                     rs = stmt.executeQuery(query1);
                     
                     while (rs.next()) {
@@ -514,7 +515,7 @@ public class FacturaInsert extends javax.swing.JFrame {
 
                     String query2 = "INSERT INTO factura_producte (num_factura, codi_producte, quantitat, preu_unitari) "
                             + "VALUES ('" + num_factura + "', '" + codi_producte + "', '" + (((JSpinner) items[i][1]).getValue()) + "', '" + preu_unitari + "');";
-
+                    System.out.println(query2);
                     stmt.executeUpdate(query2);
                     }
                 }

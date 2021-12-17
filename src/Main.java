@@ -51,7 +51,7 @@ public class Main extends javax.swing.JFrame {
         jButtonContractes = new javax.swing.JButton();
         jButtonProductes = new javax.swing.JButton();
         jButtonProveidors = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonTreballadors = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GESTIÓ DE DADES");
@@ -86,6 +86,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         jButtonContractes.setText("Contractes");
+        jButtonContractes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonContractesActionPerformed(evt);
+            }
+        });
 
         jButtonProductes.setText("Productes");
         jButtonProductes.addActionListener(new java.awt.event.ActionListener() {
@@ -101,10 +106,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Treballadors");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTreballadors.setText("Treballadors");
+        jButtonTreballadors.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonTreballadorsActionPerformed(evt);
             }
         });
 
@@ -124,7 +129,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonProductes, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonTreballadors, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonClients, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -150,7 +155,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonProductes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonTreballadors, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCategories, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jButtonExit)
@@ -165,7 +170,7 @@ public class Main extends javax.swing.JFrame {
 
             Class.forName("org.postgresql.Driver");
 
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/practica6", "postgres", "");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/kevin", "postgres", "");
 
             JOptionPane.showMessageDialog(this, "Connection with database established", "Status", JOptionPane.INFORMATION_MESSAGE);
 
@@ -205,14 +210,19 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonProveidorsActionPerformed
 
     private void jButtonProductesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProductesActionPerformed
-        //Productes proveidorsPane = new Productes(c);
-        //proveidorsPane.setVisible(true);
+        Productes proveidorsPane = new Productes(c);
+        proveidorsPane.setVisible(true);
     }//GEN-LAST:event_jButtonProductesActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonTreballadorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTreballadorsActionPerformed
         Treballadors treballadorsPane = new Treballadors(c);
         treballadorsPane.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonTreballadorsActionPerformed
+
+    private void jButtonContractesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContractesActionPerformed
+        Contractes contractesPane = new Contractes(c);
+        contractesPane.setVisible(true);
+    }//GEN-LAST:event_jButtonContractesActionPerformed
 
 
     /**
@@ -251,13 +261,13 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonCategories;
     private javax.swing.JButton jButtonClients;
     private javax.swing.JButton jButtonContractes;
     private javax.swing.JButton jButtonExit;
     private javax.swing.JButton jButtonProductes;
     private javax.swing.JButton jButtonProveidors;
+    private javax.swing.JButton jButtonTreballadors;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

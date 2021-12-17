@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Aleix Esteve, Kevin Costes
  */
-public class Proveidors extends javax.swing.JFrame {
+public class Contractes extends javax.swing.JFrame {
 
     /**
      * Creates new form Clients
@@ -20,7 +20,7 @@ public class Proveidors extends javax.swing.JFrame {
     DefaultTableModel tableModel = new DefaultTableModel();
 
 
-    public Proveidors(Connection c) {
+    public Contractes(Connection c) {
         initComponents();
         this.setLocationRelativeTo(null);
         con = c;
@@ -39,12 +39,10 @@ public class Proveidors extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableQueryResult = new javax.swing.JTable();
         jButtonInsert = new javax.swing.JButton();
-        jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
-        jButtonFactures = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("CLIENTS");
+        setTitle("CONTRACTES");
 
         jTableQueryResult.setAutoCreateRowSorter(true);
         jTableQueryResult.setModel(new javax.swing.table.DefaultTableModel(
@@ -76,27 +74,11 @@ public class Proveidors extends javax.swing.JFrame {
             }
         });
 
-        jButtonUpdate.setText("Modificar");
-        jButtonUpdate.setEnabled(false);
-        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonUpdateActionPerformed(evt);
-            }
-        });
-
         jButtonDelete.setText("Eliminar");
         jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteActionPerformed(evt);
-            }
-        });
-
-        jButtonFactures.setText("Consultar factures");
-        jButtonFactures.setEnabled(false);
-        jButtonFactures.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFacturesActionPerformed(evt);
             }
         });
 
@@ -111,11 +93,7 @@ public class Proveidors extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonInsert)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonUpdate)
-                        .addGap(18, 18, 18)
                         .addComponent(jButtonDelete)
-                        .addGap(80, 80, 80)
-                        .addComponent(jButtonFactures)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -125,9 +103,7 @@ public class Proveidors extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonInsert)
-                    .addComponent(jButtonUpdate)
-                    .addComponent(jButtonDelete)
-                    .addComponent(jButtonFactures))
+                    .addComponent(jButtonDelete))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -137,49 +113,34 @@ public class Proveidors extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTableQueryResultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableQueryResultMouseClicked
-        jButtonUpdate.setEnabled(true);
         jButtonDelete.setEnabled(true);        
-        jButtonFactures.setEnabled(true);
 
     }//GEN-LAST:event_jTableQueryResultMouseClicked
 
-    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        String DNI = (String)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
-        ClientUpdate obj = new ClientUpdate(con, DNI);
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButtonUpdateActionPerformed
-
     private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
-        ClientInsert obj = new ClientInsert(con);
+        ContracteInsert obj = new ContracteInsert(con);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonInsertActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        String DNI = (String)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
-        System.out.println(DNI);
+        String num_contracte = (String)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
+        System.out.println(num_contracte);
         
         try {
             stmt = con.createStatement();
-            String query = "DELETE FROM Client WHERE DNI='" + DNI + "'";
+            String query = "DELETE FROM Contracte WHERE num_contracte= '" + num_contracte + "'";
             System.out.println(query);
             stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(this, "Client eliminat correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Contracte eliminat correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            FacturesClient obj = new FacturesClient(con, DNI);
+            Contractes obj = new Contractes(con);
             obj.setVisible(true);
         } catch (Exception e) {
-            String txt = "Error al eliminar el client: " + e;
+            String txt = "Error al eliminar el contracte: " + e;
             JOptionPane.showMessageDialog(this, txt, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
-
-    private void jButtonFacturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturesActionPerformed
-        String DNI = (String)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
-        FacturesClient obj = new FacturesClient(con, DNI);
-        obj.setVisible(true);                      
-    }//GEN-LAST:event_jButtonFacturesActionPerformed
 
     private ResultSet executeQuery(Connection con, String query) {
 
@@ -201,7 +162,7 @@ public class Proveidors extends javax.swing.JFrame {
 
     private void fillTableData() {
         try {
-            ResultSet result = executeQuery(con, "SELECT * FROM client");
+            ResultSet result = executeQuery(con, "SELECT * FROM contracte");
 
             ResultSetMetaData resultMetaData = result.getMetaData();
             //System.out.println("List of column names in the current table: ");
@@ -242,9 +203,7 @@ public class Proveidors extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDelete;
-    private javax.swing.JButton jButtonFactures;
     private javax.swing.JButton jButtonInsert;
-    private javax.swing.JButton jButtonUpdate;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableQueryResult;
     // End of variables declaration//GEN-END:variables

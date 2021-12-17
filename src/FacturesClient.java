@@ -159,7 +159,7 @@ public class FacturesClient extends javax.swing.JFrame {
         try {
             stmt = con.createStatement();
             String query = "DELETE FROM Factura WHERE num_factura = '" + num_factura + "';";
-            //System.out.println(query);
+            System.out.println(query);
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(this, "Factura eliminada correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
             dispose();
@@ -202,8 +202,10 @@ public class FacturesClient extends javax.swing.JFrame {
 
     public void fillTableData() {
         try {
-            ResultSet result = executeQuery(con, "SELECT DISTINCT factura.num_factura, factura.descripcio, factura.total "
-                    + "FROM factura INNER JOIN client on '" + DNI + "' = factura.dni_client");
+            String query = "SELECT DISTINCT factura.num_factura, factura.descripcio, factura.total "
+                    + "FROM factura INNER JOIN client on '" + DNI + "' = factura.dni_client";
+            ResultSet result = executeQuery(con, query);
+            System.out.println(query);
             if (result == null) {
                 JOptionPane.showMessageDialog(this, "Aquest client no te factures", "Error", JOptionPane.ERROR_MESSAGE);
                 dispose();

@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Aleix Esteve, Kevin Costes
  */
-public class Proveidors extends javax.swing.JFrame {
+public class Productes extends javax.swing.JFrame {
 
     /**
      * Creates new form Clients
@@ -20,7 +20,7 @@ public class Proveidors extends javax.swing.JFrame {
     DefaultTableModel tableModel = new DefaultTableModel();
 
 
-    public Proveidors(Connection c) {
+    public Productes(Connection c) {
         initComponents();
         this.setLocationRelativeTo(null);
         con = c;
@@ -41,10 +41,9 @@ public class Proveidors extends javax.swing.JFrame {
         jButtonInsert = new javax.swing.JButton();
         jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
-        jButtonFactures = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("CLIENTS");
+        setTitle("PRODUCTES");
 
         jTableQueryResult.setAutoCreateRowSorter(true);
         jTableQueryResult.setModel(new javax.swing.table.DefaultTableModel(
@@ -92,14 +91,6 @@ public class Proveidors extends javax.swing.JFrame {
             }
         });
 
-        jButtonFactures.setText("Consultar factures");
-        jButtonFactures.setEnabled(false);
-        jButtonFactures.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFacturesActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,8 +105,6 @@ public class Proveidors extends javax.swing.JFrame {
                         .addComponent(jButtonUpdate)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonDelete)
-                        .addGap(80, 80, 80)
-                        .addComponent(jButtonFactures)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -126,8 +115,7 @@ public class Proveidors extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonInsert)
                     .addComponent(jButtonUpdate)
-                    .addComponent(jButtonDelete)
-                    .addComponent(jButtonFactures))
+                    .addComponent(jButtonDelete))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -139,47 +127,39 @@ public class Proveidors extends javax.swing.JFrame {
     private void jTableQueryResultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableQueryResultMouseClicked
         jButtonUpdate.setEnabled(true);
         jButtonDelete.setEnabled(true);        
-        jButtonFactures.setEnabled(true);
-
     }//GEN-LAST:event_jTableQueryResultMouseClicked
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        String DNI = (String)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
-        ClientUpdate obj = new ClientUpdate(con, DNI);
+        int codi = (int)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
+        ProducteUpdate obj = new ProducteUpdate(con, codi);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
-        ClientInsert obj = new ClientInsert(con);
+        ProducteInsert obj = new ProducteInsert(con);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonInsertActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        String DNI = (String)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
-        System.out.println(DNI);
+        int CODI = (int)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
+        System.out.println(CODI);
         
         try {
             stmt = con.createStatement();
-            String query = "DELETE FROM Client WHERE DNI='" + DNI + "'";
-            System.out.println(query);
+            String query = "DELETE FROM producte WHERE codi='" + CODI + "'";
+            //System.out.println(query);
             stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(this, "Client eliminat correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Producte eliminat correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            FacturesClient obj = new FacturesClient(con, DNI);
+            Productes obj = new Productes(con);
             obj.setVisible(true);
         } catch (Exception e) {
-            String txt = "Error al eliminar el client: " + e;
+            String txt = "Error al eliminar el producte: " + e;
             JOptionPane.showMessageDialog(this, txt, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
-
-    private void jButtonFacturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturesActionPerformed
-        String DNI = (String)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
-        FacturesClient obj = new FacturesClient(con, DNI);
-        obj.setVisible(true);                      
-    }//GEN-LAST:event_jButtonFacturesActionPerformed
 
     private ResultSet executeQuery(Connection con, String query) {
 
@@ -201,7 +181,7 @@ public class Proveidors extends javax.swing.JFrame {
 
     private void fillTableData() {
         try {
-            ResultSet result = executeQuery(con, "SELECT * FROM client");
+            ResultSet result = executeQuery(con, "SELECT * FROM producte");
 
             ResultSetMetaData resultMetaData = result.getMetaData();
             //System.out.println("List of column names in the current table: ");
@@ -242,7 +222,6 @@ public class Proveidors extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDelete;
-    private javax.swing.JButton jButtonFactures;
     private javax.swing.JButton jButtonInsert;
     private javax.swing.JButton jButtonUpdate;
     private javax.swing.JScrollPane jScrollPane3;
