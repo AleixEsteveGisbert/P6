@@ -7,23 +7,24 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
- * @author Aleix Esteve, Kevin Costes, Josep Barberà
+ * @author Aleix Esteve, Josep Barberà
  */
-public class Treballadors extends javax.swing.JFrame {
+public class ContractesTreballador extends javax.swing.JFrame {
 
     /**
-     * Creates new form Treballadors
+     * Creates new form Clients
      */
     Connection con;
     public static Statement stmt = null;
     public static ResultSet rs = null;
     DefaultTableModel tableModel = new DefaultTableModel();
+    int NSS;
 
-    public Treballadors(Connection c) {
+    public ContractesTreballador(Connection c, int NSS) {
         initComponents();
         this.setLocationRelativeTo(null);
         con = c;
-
+        this.NSS = NSS;
         fillTableData();
     }
 
@@ -39,12 +40,10 @@ public class Treballadors extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableQueryResult = new javax.swing.JTable();
         jButtonInsert = new javax.swing.JButton();
-        jButtonUpdate = new javax.swing.JButton();
-        jButtonDelete = new javax.swing.JButton();
-        jButtonContractes = new javax.swing.JButton();
+        jButtonGoBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("TREBALLADORS");
+        setTitle("Contractes");
 
         jTableQueryResult.setAutoCreateRowSorter(true);
         jTableQueryResult.setModel(new javax.swing.table.DefaultTableModel(
@@ -76,27 +75,12 @@ public class Treballadors extends javax.swing.JFrame {
             }
         });
 
-        jButtonUpdate.setText("Modificar");
-        jButtonUpdate.setEnabled(false);
-        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGoBack.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jButtonGoBack.setText("⬅");
+        jButtonGoBack.setToolTipText("Torna enrere");
+        jButtonGoBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonUpdateActionPerformed(evt);
-            }
-        });
-
-        jButtonDelete.setText("Eliminar");
-        jButtonDelete.setEnabled(false);
-        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDeleteActionPerformed(evt);
-            }
-        });
-
-        jButtonContractes.setText("Consultar Contractes");
-        jButtonContractes.setEnabled(false);
-        jButtonContractes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonContractesActionPerformed(evt);
+                jButtonGoBackActionPerformed(evt);
             }
         });
 
@@ -110,25 +94,22 @@ public class Treballadors extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonInsert)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonUpdate)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonDelete)
-                        .addGap(45, 45, 45)
-                        .addComponent(jButtonContractes)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonGoBack)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonInsert)
-                    .addComponent(jButtonUpdate)
-                    .addComponent(jButtonDelete)
-                    .addComponent(jButtonContractes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(19, Short.MAX_VALUE)
+                        .addComponent(jButtonInsert)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -137,49 +118,18 @@ public class Treballadors extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTableQueryResultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableQueryResultMouseClicked
-        jButtonUpdate.setEnabled(true);
-        jButtonDelete.setEnabled(true);        
-        jButtonContractes.setEnabled(true);
 
     }//GEN-LAST:event_jTableQueryResultMouseClicked
 
-    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        int NSS = (int)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
-        TreballadorUpdate obj = new TreballadorUpdate(con, NSS);
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButtonUpdateActionPerformed
-
     private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
-        TreballadorInsert obj = new TreballadorInsert(con);
+        TreballadorContracteInsert obj = new TreballadorContracteInsert(con, NSS);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonInsertActionPerformed
 
-    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        int NSS = (int)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
-        System.out.println(NSS);
-       
-        try {
-            stmt = con.createStatement();
-            String query = "DELETE FROM Treballador WHERE NSS='" + NSS + "'";
-            //System.out.println(query);
-           stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(this, "Treballador eliminat correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-           Treballadors obj = new Treballadors(con);
-            obj.setVisible(true);
-       } catch (Exception e) {
-           String txt = "Error al eliminar el treballador: " + e;
-            JOptionPane.showMessageDialog(this, txt, "Error", JOptionPane.ERROR_MESSAGE);
-       }
-    }//GEN-LAST:event_jButtonDeleteActionPerformed
-
-    private void jButtonContractesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContractesActionPerformed
-        int NSS = (int)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
-        ContractesTreballador obj = new ContractesTreballador(con, NSS);
-        obj.setVisible(true);
-    }//GEN-LAST:event_jButtonContractesActionPerformed
+    private void jButtonGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoBackActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButtonGoBackActionPerformed
 
     private ResultSet executeQuery(Connection con, String query) {
 
@@ -199,17 +149,20 @@ public class Treballadors extends javax.swing.JFrame {
         }
     }
 
-    private void fillTableData() {
+    public void fillTableData() {
         try {
-            ResultSet result = executeQuery(con, "SELECT * FROM treballador");
-
+            String query = "SELECT num_contracte, data_inici, data_final, import_anual from contracte WHERE nss_treballador = '"+ NSS +"'; ";
+            ResultSet result = executeQuery(con, query);
+            System.out.println(query);
+            if (result == null) {
+                JOptionPane.showMessageDialog(this, "Aquest Treballador no te contractes", "Error", JOptionPane.ERROR_MESSAGE);
+                dispose();
+            } else {
             ResultSetMetaData resultMetaData = result.getMetaData();
             //System.out.println("List of column names in the current table: ");
 
             int nCols = resultMetaData.getColumnCount();
             String cols[] = new String[nCols];
-
-            
 
             for (int i = 1; i <= nCols; i++) {
                 tableModel.addColumn(resultMetaData.getColumnName(i));
@@ -228,11 +181,9 @@ public class Treballadors extends javax.swing.JFrame {
 
             jTableQueryResult.setModel(tableModel);
             jTableQueryResult.setColumnSelectionAllowed(false);
-
+            }
         } catch (Exception e) {
             System.out.println("Error: " + e);
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
         }
     }
 
@@ -241,10 +192,8 @@ public class Treballadors extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonContractes;
-    private javax.swing.JButton jButtonDelete;
+    private javax.swing.JButton jButtonGoBack;
     private javax.swing.JButton jButtonInsert;
-    private javax.swing.JButton jButtonUpdate;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableQueryResult;
     // End of variables declaration//GEN-END:variables

@@ -21,9 +21,9 @@ public class TreballadorUpdate extends javax.swing.JFrame {
     Connection con;
     public static Statement stmt = null;
     public static ResultSet rs = null;
-    String nss;
+    int nss;
 
-    public TreballadorUpdate(Connection c, String nss) {
+    public TreballadorUpdate(Connection c, int nss) {
         con = c;
         this.nss = nss;
         initComponents();
@@ -216,7 +216,7 @@ public class TreballadorUpdate extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, txt, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonUpdateActionPerformed
-    private void plenarCamps(String nss) {
+    private void plenarCamps(int nss) {
         try {
                 String query = "SELECT * FROM treballador WHERE nss = '"+ nss +"'";
                 stmt = con.createStatement();

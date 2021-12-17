@@ -170,7 +170,7 @@ public class Main extends javax.swing.JFrame {
 
             Class.forName("org.postgresql.Driver");
 
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/kevin", "postgres", "");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/practica6", "postgres", "");
 
             JOptionPane.showMessageDialog(this, "Connection with database established", "Status", JOptionPane.INFORMATION_MESSAGE);
 

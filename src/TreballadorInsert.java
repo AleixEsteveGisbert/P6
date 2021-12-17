@@ -200,7 +200,10 @@ public class TreballadorInsert extends javax.swing.JFrame {
         try {
             stmt = con.createStatement();
             String query = "INSERT INTO treballador (nss, dni,nom, data_incorporacio) "
-                    + "VALUES ('" + jTextFieldNSS.getText() + "', " + "'" + jTextFieldDNI.getText()+ "', " + "'" + jTextFieldNom.getText()+ "',"+" '" + jTextFieldNom.getText() + "');
+                    + "VALUES ('" + jTextFieldNSS.getText() + "',"
+                    + "'" + jTextFieldDNI.getText()+ "',"
+                    + "'" + jTextFieldNom.getText()+ "',"
+                    +" '" + jTextFieldNom.getText() + "')";
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(this, "Categoria inserida correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
             dispose();
