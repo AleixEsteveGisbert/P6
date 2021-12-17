@@ -1,21 +1,18 @@
-import java.sql.ResultSet;
+
 import java.sql.Connection;
 import java.sql.Statement;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author Aleix
  */
-public class ProducteInsert extends javax.swing.JFrame {
+public class ProducteUpdate extends javax.swing.JFrame {
 
     /**
      * Creates new form ClientInsert
@@ -23,11 +20,14 @@ public class ProducteInsert extends javax.swing.JFrame {
     Connection con;
     public static Statement stmt = null;
     public static ResultSet rs = null;
+    int codi;
 
-    public ProducteInsert(Connection c) {
+    public ProducteUpdate(Connection c, int codi) {
         con = c;
+        this.codi = codi;
         initComponents();
         this.setLocationRelativeTo(null);
+        plenarCamps(codi);
         getCategoria();
         getProveidor();
     }
@@ -44,16 +44,16 @@ public class ProducteInsert extends javax.swing.JFrame {
         jButtonGoBack = new javax.swing.JButton();
         jTextFieldNom = new javax.swing.JTextField();
         jButtonCancel = new javax.swing.JButton();
-        jButtonCreate = new javax.swing.JButton();
+        jButtonUpdate = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldDesc = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldPreu = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBoxCategoria = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jComboBoxProveidor = new javax.swing.JComboBox<>();
+        jComboBoxCategoria = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -82,11 +82,11 @@ public class ProducteInsert extends javax.swing.JFrame {
             }
         });
 
-        jButtonCreate.setBackground(new java.awt.Color(102, 255, 102));
-        jButtonCreate.setText("Crear");
-        jButtonCreate.addActionListener(new java.awt.event.ActionListener() {
+        jButtonUpdate.setBackground(new java.awt.Color(102, 255, 102));
+        jButtonUpdate.setText("Modificar");
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCreateActionPerformed(evt);
+                jButtonUpdateActionPerformed(evt);
             }
         });
 
@@ -112,16 +112,8 @@ public class ProducteInsert extends javax.swing.JFrame {
 
         jLabel5.setText("Categoria:");
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Categoria" }));
-        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxCategoriaActionPerformed(evt);
-            }
-        });
+        jLabel10.setText("Correu:");
 
-        jLabel11.setText("Proveidor:");
-
-        jComboBoxProveidor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Proveidor" }));
         jComboBoxProveidor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxProveidorActionPerformed(evt);
@@ -136,29 +128,39 @@ public class ProducteInsert extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonGoBack)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 38, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonGoBack)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 38, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel3)
                                         .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel1))
                                     .addComponent(jTextFieldDesc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(354, 354, 354))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jTextFieldPreu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel4))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addGap(366, 366, 366))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jButtonCancel)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButtonCreate))
-                                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel11))
-                            .addComponent(jComboBoxProveidor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jButtonUpdate)))))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBoxProveidor, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -178,17 +180,17 @@ public class ProducteInsert extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldPreu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel11)
+                .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxProveidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCreate)
+                    .addComponent(jButtonUpdate)
                     .addComponent(jButtonCancel))
                 .addContainerGap())
         );
@@ -207,20 +209,20 @@ public class ProducteInsert extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNomActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        Productes mainWindow = new Productes(con);   // Create a new MainJFrame window
-        mainWindow.setVisible(true);    // Make it visible
-        dispose();                      // Hide current window
+        Productes obj = new Productes(con);
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
-    private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
         try {
-            int codi=0, codi2=0;
+            int codi1=0, codi2=0;
             String query1 = "SELECT * FROM categoria WHERE nom = '" + jComboBoxCategoria.getSelectedItem() + "'";
 
                     rs = stmt.executeQuery(query1);
                     
                     while (rs.next()) {
-                        codi = rs.getInt("codi");
+                        codi1 = rs.getInt("codi");
                     }
                     
             String query2 = "SELECT * FROM proveidor WHERE nom = '" + jComboBoxProveidor.getSelectedItem() + "'";
@@ -232,24 +234,62 @@ public class ProducteInsert extends javax.swing.JFrame {
                     }
             
             stmt = con.createStatement();
-            String query = "INSERT INTO producte (nom_comercial, descripcio, preu_unitari, codi_categoria, codi_proveidor) "
-                    + "VALUES ('" + jTextFieldNom.getText() + "', "
-                    + "'" + jTextFieldDesc.getText() + "', "
-                    + "'" + jTextFieldPreu.getText() + "', "
-                    + "'" + codi + "', "
-                    + "'" + codi2 + "')";
+            String query = "UPDATE producte SET nom_comercial = '" + jTextFieldNom.getText() + "', "
+                    + "descripcio = '" + jTextFieldDesc.getText() + "', "
+                    + "preu_unitari = '" + jTextFieldPreu.getText() + "', "
+                    + "codi_categoria = '" + codi1 + "', "
+                    + "codi_proveidor = '" + codi2
+                    + "' WHERE codi ='" + codi + "'";
+
             //System.out.println(query);
             stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(this, "Producte inserit correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Producte modificat correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            Productes mainWindow = new Productes(con);   // Create a new MainJFrame window
-        mainWindow.setVisible(true); 
+            Productes obj = new Productes(con);
+            obj.setVisible(true);
         } catch (Exception e) {
-            String txt = "Error al inserir producte: " + e;
+            String txt = "Error al modificar el producte: " + e;
             JOptionPane.showMessageDialog(this, txt, "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButtonCreateActionPerformed
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
+    private void plenarCamps(int codi) {
+        try {
+            String nom_cat = "", nom_prov = "", a = "", b = "";
+            String query = "SELECT * FROM producte WHERE codi = '" + codi + "'";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                jTextFieldNom.setText(rs.getString("nom_comercial"));
+                jTextFieldDesc.setText(rs.getString("descripcio"));
+                jTextFieldPreu.setText(rs.getString("preu_unitari"));
+                a=rs.getString("codi_categoria");
+                b=rs.getString("codi_proveidor");
+            }
 
+            
+            String query1 = "SELECT nom FROM categoria WHERE codi = '" + a + "'";
+            rs = stmt.executeQuery(query1);
+
+            while (rs.next()) {
+                nom_cat = rs.getString("nom");
+            }
+
+            String query2 = "SELECT nom FROM proveidor WHERE codi = '" + b + "'";
+            rs = stmt.executeQuery(query2);
+
+            while (rs.next()) {
+                nom_prov = rs.getString("nom");
+            }
+
+            jComboBoxCategoria.setSelectedItem(nom_cat);
+            jComboBoxCategoria.setSelectedItem(nom_prov);
+            
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }
     private void jTextFieldDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDescActionPerformed
@@ -258,56 +298,50 @@ public class ProducteInsert extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPreuActionPerformed
 
-    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
-        
-    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
-
     private void jComboBoxProveidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProveidorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxProveidorActionPerformed
-    
+
     private void getCategoria() {
 
-            try {
-                String query = "SELECT * FROM categoria";
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-                while (rs.next()) {
-                    jComboBoxCategoria.addItem(rs.getString("nom"));
-                }
-            } catch (Exception e) {
+        try {
+            String query = "SELECT * FROM categoria";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                jComboBoxCategoria.addItem(rs.getString("nom"));
+            }
+        } catch (Exception e) {
 
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
-            
         }
     }
-    
-     private void getProveidor() {
 
-            try {
-                String query = "SELECT * FROM proveidor";
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-                while (rs.next()) {
-                    jComboBoxProveidor.addItem(rs.getString("nom"));
-                }
-            } catch (Exception e) {
+    private void getProveidor() {
 
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        try {
+            String query = "SELECT * FROM proveidor";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                jComboBoxProveidor.addItem(rs.getString("nom"));
+            }
+        } catch (Exception e) {
 
-            
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
-    private javax.swing.JButton jButtonCreate;
     private javax.swing.JButton jButtonGoBack;
+    private javax.swing.JButton jButtonUpdate;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JComboBox<String> jComboBoxProveidor;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

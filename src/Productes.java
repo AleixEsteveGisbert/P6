@@ -130,8 +130,8 @@ public class Productes extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableQueryResultMouseClicked
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        String DNI = (String)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
-        ClientUpdate obj = new ClientUpdate(con, DNI);
+        int codi = (int)tableModel.getValueAt(jTableQueryResult.getSelectedRow(), 0);
+        ProducteUpdate obj = new ProducteUpdate(con, codi);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonUpdateActionPerformed
