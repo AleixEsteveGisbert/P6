@@ -2,3 +2,6 @@ build
 test
 nbproject
 dist
+/dist
+dist/
+/dist/
