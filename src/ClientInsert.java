@@ -304,7 +304,7 @@ public class ClientInsert extends javax.swing.JFrame {
                     + "'" + jTextFieldPis.getText() + "', "
                     + "'" + jTextFieldPorta.getText() + "', "
                     + "'" + jTextFieldCorreu.getText() + "')";
-            //System.out.println(query);
+            System.out.println(query);
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(this, "Client inserit correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
             dispose();

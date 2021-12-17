@@ -164,7 +164,7 @@ public class Clients extends javax.swing.JFrame {
         try {
             stmt = con.createStatement();
             String query = "DELETE FROM Client WHERE DNI='" + DNI + "'";
-            //System.out.println(query);
+            System.out.println(query);
             stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(this, "Client eliminat correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
             dispose();
