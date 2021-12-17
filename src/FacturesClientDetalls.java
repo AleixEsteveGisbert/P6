@@ -130,10 +130,11 @@ public class FacturesClientDetalls extends javax.swing.JFrame {
 
     private void getDadesFactura(int num_factura) {
         try {
-            ResultSet result = executeQuery(con, "SELECT DISTINCT producte.nom_comercial, producte.preu_unitari, factura_producte.quantitat, (producte.preu_unitari * factura_producte.quantitat) "
+            String query = "SELECT DISTINCT producte.nom_comercial, producte.preu_unitari, factura_producte.quantitat, (producte.preu_unitari * factura_producte.quantitat) "
                     + "AS Preu_Total from producte "
-                    + "INNER JOIN factura_producte on '"+ num_factura +"' = factura_producte.num_factura and factura_producte.codi_producte = producte.codi;");
-            
+                    + "INNER JOIN factura_producte on '"+ num_factura +"' = factura_producte.num_factura and factura_producte.codi_producte = producte.codi;";
+            ResultSet result = executeQuery(con, query);
+            System.out.println(query);
             if (result == null) {
                 JOptionPane.showMessageDialog(this, "Aquesta factura no te detalls que mostrar", "Error", JOptionPane.ERROR_MESSAGE);
                 dispose();

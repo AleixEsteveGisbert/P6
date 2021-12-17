@@ -1,7 +1,6 @@
 
 import java.sql.Connection;
 import java.sql.Statement;
-import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /*
@@ -13,22 +12,18 @@ import javax.swing.JOptionPane;
  *
  * @author Aleix
  */
-public class ClientUpdate extends javax.swing.JFrame {
+public class ContracteInsert extends javax.swing.JFrame {
 
     /**
      * Creates new form ClientInsert
      */
     Connection con;
     public static Statement stmt = null;
-    public static ResultSet rs = null;
-    String DNI;
 
-    public ClientUpdate(Connection c, String DNI) {
+    public ContracteInsert(Connection c) {
         con = c;
-        this.DNI = DNI;
         initComponents();
         this.setLocationRelativeTo(null);
-        plenarCamps(DNI);
 
     }
 
@@ -44,7 +39,7 @@ public class ClientUpdate extends javax.swing.JFrame {
         jButtonGoBack = new javax.swing.JButton();
         jTextFieldDNI = new javax.swing.JTextField();
         jButtonCancel = new javax.swing.JButton();
-        jButtonUpdate = new javax.swing.JButton();
+        jButtonCreate = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldNom = new javax.swing.JTextField();
@@ -64,6 +59,7 @@ public class ClientUpdate extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Crear contracte");
 
         jButtonGoBack.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jButtonGoBack.setText("⬅");
@@ -90,11 +86,11 @@ public class ClientUpdate extends javax.swing.JFrame {
             }
         });
 
-        jButtonUpdate.setBackground(new java.awt.Color(102, 255, 102));
-        jButtonUpdate.setText("Modificar");
-        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCreate.setBackground(new java.awt.Color(102, 255, 102));
+        jButtonCreate.setText("Crear");
+        jButtonCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonUpdateActionPerformed(evt);
+                jButtonCreateActionPerformed(evt);
             }
         });
 
@@ -219,7 +215,7 @@ public class ClientUpdate extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jButtonCancel)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButtonUpdate)))))
+                                .addComponent(jButtonCreate)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -272,7 +268,7 @@ public class ClientUpdate extends javax.swing.JFrame {
                 .addComponent(jTextFieldCorreu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonUpdate)
+                    .addComponent(jButtonCreate)
                     .addComponent(jButtonCancel))
                 .addContainerGap())
         );
@@ -291,60 +287,36 @@ public class ClientUpdate extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDNIActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        Clients obj = new Clients(con);
-        obj.setVisible(true);
-        dispose();
+        Clients mainWindow = new Clients(con);   // Create a new MainJFrame window
+        mainWindow.setVisible(true);    // Make it visible
+        dispose();                      // Hide current window
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
-    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
+    private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
         try {
-           stmt = con.createStatement();
-           String query = "UPDATE client SET dni = '"+jTextFieldDNI.getText()+"', "
-                    + "nom = '"+ jTextFieldNom.getText() +"', "
-                    + "població = '"+ jTextFieldPoblacio.getText() +"', "
-                    + "\"adreça.carrer\" = '"+ jTextFieldCarrer.getText() +"', "
-                    + "\"adreça.num\" = '"+ jTextFieldNum.getText() +"', "
-                    + "\"adreça.escala\" = '"+ jTextFieldEscala.getText() +"', "
-                    + "\"adreça.pis\" = '"+ jTextFieldPis.getText() +"', "
-                    + "\"adreça.porta\" = '"+ jTextFieldPorta.getText() +"', "
-                    + "email = '"+ jTextFieldCorreu.getText() +"' "
-                    + "WHERE dni ='"+ DNI +"'";
-            
-            
+            stmt = con.createStatement();
+            String query = "INSERT INTO client (dni, nom, població, \"adreça.carrer\", \"adreça.num\", \"adreça.escala\", \"adreça.pis\", \"adreça.porta\", email) "
+                    + "VALUES ('" + jTextFieldDNI.getText() + "', "
+                    + "'" + jTextFieldNom.getText() + "', "
+                    + "'" + jTextFieldPoblacio.getText() + "', "
+                    + "'" + jTextFieldCarrer.getText() + "', "
+                    + "'" + jTextFieldNum.getText() + "', "
+                    + "'" + jTextFieldEscala.getText() + "', "
+                    + "'" + jTextFieldPis.getText() + "', "
+                    + "'" + jTextFieldPorta.getText() + "', "
+                    + "'" + jTextFieldCorreu.getText() + "')";
             System.out.println(query);
             stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(this, "Client modificat correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Client inserit correctament", "Status", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-            Clients obj = new Clients(con);
-            obj.setVisible(true);
+            Clients mainWindow = new Clients(con);   // Create a new MainJFrame window
+        mainWindow.setVisible(true); 
         } catch (Exception e) {
-            String txt = "Error al modificar client: " + e;
+            String txt = "Error al inserir client: " + e;
             JOptionPane.showMessageDialog(this, txt, "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButtonUpdateActionPerformed
-    private void plenarCamps(String DNI) {
-        try {
-                String query = "SELECT * FROM client WHERE dni = '"+ DNI +"'";
-                System.out.println(query);
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-                while (rs.next()) {
-                    jTextFieldDNI.setText(rs.getString("dni"));
-                    jTextFieldNom.setText(rs.getString("nom"));
-                    jTextFieldPoblacio.setText(rs.getString("població"));
-                    jTextFieldCarrer.setText(rs.getString("adreça.carrer"));
-                    jTextFieldNum.setText(rs.getString("adreça.num"));
-                    jTextFieldEscala.setText(rs.getString("adreça.escala"));
-                    jTextFieldPis.setText(rs.getString("adreça.pis"));
-                    jTextFieldPorta.setText(rs.getString("adreça.porta"));
-                    jTextFieldCorreu.setText(rs.getString("email"));
-                }
-            } catch (Exception e) {
+    }//GEN-LAST:event_jButtonCreateActionPerformed
 
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
-            }
-    }
     private void jTextFieldNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomActionPerformed
@@ -380,8 +352,8 @@ public class ClientUpdate extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonCreate;
     private javax.swing.JButton jButtonGoBack;
-    private javax.swing.JButton jButtonUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
